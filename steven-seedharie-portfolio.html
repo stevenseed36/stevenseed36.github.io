@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Steven Seedharie — CS Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #0a0f1e;
+    --navy-light: #111827;
+    --accent: #6366f1;
+    --accent-glow: #818cf8;
+    --accent-soft: rgba(99,102,241,0.12);
+    --text: #f1f5f9;
+    --text-muted: #94a3b8;
+    --border: rgba(255,255,255,0.08);
+    --card: rgba(255,255,255,0.04);
+    --card-hover: rgba(255,255,255,0.07);
+    --green: #10b981;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--navy);
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 2.5rem;
+    background: rgba(10,15,30,0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 0.5px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700; font-size: 1.1rem; letter-spacing: -0.02em;
+    color: var(--text);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.875rem; color: var(--text-muted);
+    text-decoration: none; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 7rem 2.5rem 4rem;
+    max-width: 900px; margin: 0 auto;
+    position: relative;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--accent-soft);
+    border: 0.5px solid rgba(99,102,241,0.3);
+    border-radius: 100px;
+    padding: 5px 14px; font-size: 0.8rem;
+    color: var(--accent-glow); font-weight: 500;
+    margin-bottom: 1.5rem;
+  }
+  .hero-badge::before {
+    content: ''; width: 7px; height: 7px;
+    background: var(--green); border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; } 50% { opacity: 0.4; }
+  }
+  h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(2.8rem, 6vw, 4.5rem);
+    font-weight: 700; line-height: 1.05;
+    letter-spacing: -0.03em;
+    margin-bottom: 0.75rem;
+  }
+  h1 .highlight {
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-glow) 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-sub {
+    font-size: 1.2rem; color: var(--text-muted);
+    max-width: 520px; margin-bottom: 2rem;
+    font-weight: 400;
+  }
+  .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--accent); color: #fff;
+    padding: 0.7rem 1.6rem; border-radius: 8px;
+    font-size: 0.9rem; font-weight: 600;
+    text-decoration: none; transition: opacity 0.2s;
+  }
+  .btn-primary:hover { opacity: 0.85; }
+  .btn-outline {
+    border: 0.5px solid var(--border);
+    color: var(--text-muted);
+    padding: 0.7rem 1.6rem; border-radius: 8px;
+    font-size: 0.9rem; font-weight: 500;
+    text-decoration: none; transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-outline:hover { border-color: rgba(255,255,255,0.3); color: var(--text); }
+
+  /* SECTIONS */
+  section { padding: 5rem 2.5rem; max-width: 900px; margin: 0 auto; }
+  .section-label {
+    font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em;
+    color: var(--accent); text-transform: uppercase; margin-bottom: 0.5rem;
+  }
+  h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    font-weight: 700; letter-spacing: -0.02em;
+    margin-bottom: 2.5rem;
+  }
+  .divider { border: none; border-top: 0.5px solid var(--border); margin: 0; }
+
+  /* ABOUT */
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+  .about-text p { color: var(--text-muted); line-height: 1.8; margin-bottom: 1rem; font-size: 0.95rem; }
+  .stat-row { display: flex; gap: 2rem; margin-top: 1.5rem; }
+  .stat strong { display: block; font-size: 1.6rem; font-weight: 700; font-family: 'Space Grotesk', sans-serif; }
+  .stat span { font-size: 0.8rem; color: var(--text-muted); }
+
+  /* SKILLS */
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+  .skill-card {
+    background: var(--card);
+    border: 0.5px solid var(--border);
+    border-radius: 12px; padding: 1.25rem;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .skill-card:hover { background: var(--card-hover); border-color: rgba(255,255,255,0.14); }
+  .skill-icon {
+    width: 36px; height: 36px; border-radius: 8px;
+    background: var(--accent-soft); display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; margin-bottom: 0.75rem;
+  }
+  .skill-card h3 { font-size: 0.9rem; font-weight: 600; margin-bottom: 0.35rem; }
+  .skill-card p { font-size: 0.8rem; color: var(--text-muted); line-height: 1.5; }
+
+  /* EXPERIENCE */
+  .timeline { position: relative; padding-left: 1.5rem; }
+  .timeline::before {
+    content: ''; position: absolute; left: 0; top: 8px; bottom: 0;
+    width: 1px; background: var(--border);
+  }
+  .timeline-item { position: relative; margin-bottom: 2.5rem; }
+  .timeline-item::before {
+    content: ''; position: absolute;
+    left: -1.57rem; top: 8px;
+    width: 9px; height: 9px; border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 3px var(--navy), 0 0 0 4px var(--accent);
+  }
+  .job-header { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 0.25rem; margin-bottom: 0.5rem; }
+  .job-title { font-weight: 600; font-size: 1rem; }
+  .job-company { color: var(--accent-glow); font-size: 0.9rem; font-weight: 500; }
+  .job-date { font-size: 0.8rem; color: var(--text-muted); }
+  .job-desc { font-size: 0.875rem; color: var(--text-muted); line-height: 1.7; }
+  .job-desc li { margin-bottom: 0.3rem; padding-left: 0.25rem; }
+  .job-desc ul { padding-left: 1.1rem; }
+
+  /* EDUCATION */
+  .edu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; }
+  .edu-card {
+    background: var(--card); border: 0.5px solid var(--border);
+    border-radius: 12px; padding: 1.25rem 1.5rem;
+    transition: background 0.2s;
+  }
+  .edu-card:hover { background: var(--card-hover); }
+  .edu-degree { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.25rem; }
+  .edu-school { color: var(--accent-glow); font-size: 0.85rem; font-weight: 500; margin-bottom: 0.2rem; }
+  .edu-years { font-size: 0.8rem; color: var(--text-muted); }
+
+  /* COURSEWORK */
+  .course-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .course-tag {
+    background: var(--accent-soft); border: 0.5px solid rgba(99,102,241,0.25);
+    color: var(--accent-glow); border-radius: 6px;
+    padding: 5px 12px; font-size: 0.8rem; font-weight: 500;
+  }
+
+  /* CONTACT */
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .contact-card {
+    background: var(--card); border: 0.5px solid var(--border);
+    border-radius: 12px; padding: 1.25rem 1.5rem;
+    display: flex; align-items: center; gap: 1rem;
+    text-decoration: none; color: var(--text);
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .contact-card:hover { background: var(--card-hover); border-color: rgba(255,255,255,0.14); }
+  .contact-icon {
+    width: 40px; height: 40px; border-radius: 10px;
+    background: var(--accent-soft); display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; flex-shrink: 0;
+  }
+  .contact-label { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 2px; }
+  .contact-val { font-size: 0.9rem; font-weight: 500; }
+
+  /* FOOTER */
+  footer {
+    text-align: center; padding: 2rem;
+    font-size: 0.8rem; color: var(--text-muted);
+    border-top: 0.5px solid var(--border);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 680px) {
+    nav { padding: 1rem 1.25rem; }
+    .nav-links { gap: 1.2rem; }
+    .hero, section { padding-left: 1.25rem; padding-right: 1.25rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+    .contact-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#"><span>S</span>teven Seedharie</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">Available for internships</div>
+  <h1>Steven<br><span class="highlight">Seedharie</span></h1>
+  <p class="hero-sub">Computer Science student at CUNY Queens College, building strong foundations in software development, databases, and data analysis.</p>
+  <div class="hero-ctas">
+    <a href="#contact" class="btn-primary">Get in touch</a>
+    <a href="#experience" class="btn-outline">View experience</a>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ABOUT -->
+<section id="about">
+  <p class="section-label">About me</p>
+  <h2>Driven by curiosity,<br>grounded in code</h2>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>I'm a Computer Science undergraduate at CUNY Queens College, with an Associate Degree in Computer Information Systems from Queensborough Community College. I'm actively seeking internship opportunities where I can apply my technical and analytical skills in a real professional environment.</p>
+      <p>I'm comfortable building, debugging, and optimizing across multiple languages, and I bring strong communication and collaboration skills developed through customer-facing roles and community mentorship.</p>
+    </div>
+    <div>
+      <div class="stat-row">
+        <div class="stat">
+          <strong>7+</strong>
+          <span>Languages</span>
+        </div>
+        <div class="stat">
+          <strong>3+</strong>
+          <span>Years of CS study</span>
+        </div>
+        <div class="stat">
+          <strong>NYC</strong>
+          <span>Based in Queens</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- SKILLS -->
+<section id="skills">
+  <p class="section-label">Technical skills</p>
+  <h2>What I work with</h2>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <div class="skill-icon">💻</div>
+      <h3>Programming Languages</h3>
+      <p>C++, Java, Python, JavaScript, SQL, HTML, CSS — building, debugging, and optimizing across paradigms.</p>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🌐</div>
+      <h3>Web Design & Development</h3>
+      <p>HTML, CSS, JavaScript — responsive front-end layouts, UX/UI design principles, and user-centered websites.</p>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🤖</div>
+      <h3>Machine Learning</h3>
+      <p>Supervised learning, model selection, regularization, linear & logistic regression, neural networks, and backpropagation.</p>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">⚙️</div>
+      <h3>Computer Architecture & MIPS</h3>
+      <p>MIPS assembly language, binary systems, bitwise operations, and low-level digital logic and systems design.</p>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🗄️</div>
+      <h3>Databases</h3>
+      <p>SQL and relational database management, schema design, data integrity, and efficient querying and retrieval.</p>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">📊</div>
+      <h3>Data Analysis</h3>
+      <p>Excel for data visualization, sales trend analysis, inventory management, and financial modeling.</p>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🐍</div>
+      <h3>Python</h3>
+      <p>Scripting, data processing, algorithm implementation, and applying Python to machine learning workflows.</p>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🛠️</div>
+      <h3>Dev Tools</h3>
+      <p>Microsoft Visual Studio, Microsoft Office Suite, DBMS platforms, and version control fundamentals.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <p class="section-label">Work experience</p>
+  <h2>Where I've contributed</h2>
+  <div class="timeline">
+
+    <div class="timeline-item">
+      <div class="job-header">
+        <div>
+          <div class="job-title">Sales Associate</div>
+          <div class="job-company">Gap, Inc.</div>
+        </div>
+        <div class="job-date">June 2022 – Present</div>
+      </div>
+      <div class="job-desc">
+        <ul>
+          <li>Analyzed weekly sales reports to identify high-demand products and optimize inventory placements, improving product visibility and customer satisfaction.</li>
+          <li>Used Excel to track sales trends and inventory, providing actionable insights for restocking and promotional strategies.</li>
+          <li>Engaged effectively with customers and team members to maintain a positive, customer-focused environment.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="job-header">
+        <div>
+          <div class="job-title">Sales Associate (Temporary)</div>
+          <div class="job-company">Express</div>
+        </div>
+        <div class="job-date">Oct 2021 – Dec 2021</div>
+      </div>
+      <div class="job-desc">
+        <ul>
+          <li>Managed store layout and product displays, adhering to company guidelines for an organized shopping space.</li>
+          <li>Provided tailored product recommendations, enhancing customer experience and increasing sales.</li>
+          <li>Collaborated with colleagues in a dynamic environment, demonstrating flexibility and teamwork.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="job-header">
+        <div>
+          <div class="job-title">Mentor — Summer Youth Enrollment Program</div>
+          <div class="job-company">NYC Dept. of Youth & Community Development</div>
+        </div>
+        <div class="job-date">Summers 2018 & 2019</div>
+      </div>
+      <div class="job-desc">
+        <ul>
+          <li>Led an environmental education project on global warming, engaging elementary students in interactive learning activities.</li>
+          <li>Developed public speaking and mentorship skills by explaining project concepts to younger students.</li>
+          <li>Planned and executed educational initiatives as part of a collaborative team.</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- EDUCATION -->
+<section id="education">
+  <p class="section-label">Education</p>
+  <h2>Academic background</h2>
+  <div class="edu-grid">
+    <div class="edu-card">
+      <div class="edu-degree">B.S. in Computer Science</div>
+      <div class="edu-school">CUNY Queens College</div>
+      <div class="edu-years">August 2023 – Present</div>
+    </div>
+    <div class="edu-card">
+      <div class="edu-degree">A.S. in Computer Information Systems</div>
+      <div class="edu-school">CUNY Queensborough Community College</div>
+      <div class="edu-years">September 2020 – May 2023</div>
+    </div>
+    <div class="edu-card">
+      <div class="edu-degree">High School Diploma</div>
+      <div class="edu-school">Richmond Hill High School</div>
+      <div class="edu-years">September 2016 – June 2020</div>
+    </div>
+  </div>
+
+  <div style="margin-top: 2.5rem;">
+    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem; font-weight: 500;">Relevant coursework</p>
+    <div class="course-tags">
+      <span class="course-tag">Database Management Systems</span>
+      <span class="course-tag">Web Design & Development</span>
+      <span class="course-tag">Local Area Network Management</span>
+      <span class="course-tag">Data Structures</span>
+      <span class="course-tag">Computer Architecture</span>
+      <span class="course-tag">Machine Learning</span>
+      <span class="course-tag">Algorithms</span>
+      <span class="course-tag">Programming in C++</span>
+      <span class="course-tag">Python</span>
+      <span class="course-tag">Java</span>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- CONTACT -->
+<section id="contact">
+  <p class="section-label">Contact</p>
+  <h2>Let's connect</h2>
+  <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 2rem; max-width: 480px;">I'm actively looking for internship opportunities. Feel free to reach out — I'd love to talk.</p>
+  <div class="contact-grid">
+    <a href="mailto:stevenseed36@gmail.com" class="contact-card">
+      <div class="contact-icon">✉️</div>
+      <div>
+        <div class="contact-label">Email</div>
+        <div class="contact-val">stevenseed36@gmail.com</div>
+      </div>
+    </a>
+    <a href="tel:3474197505" class="contact-card">
+      <div class="contact-icon">📞</div>
+      <div>
+        <div class="contact-label">Phone</div>
+        <div class="contact-val">(347) 419-7505</div>
+      </div>
+    </a>
+    <a href="https://github.com/stevenseed36" target="_blank" class="contact-card">
+      <div class="contact-icon">🐙</div>
+      <div>
+        <div class="contact-label">GitHub</div>
+        <div class="contact-val">github.com/stevenseed36</div>
+      </div>
+    </a>
+    <div class="contact-card" style="cursor: default;">
+      <div class="contact-icon">📍</div>
+      <div>
+        <div class="contact-label">Location</div>
+        <div class="contact-val">Queens, New York</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 Steven Seedharie · Built to impress</p>
+</footer>
+
+</body>
+</html>
